@@ -41,11 +41,14 @@ struct ContentView: View {
                                 .identifier ?? "EUR"))
                     .keyboardType(.decimalPad)
                     .focused($amountIsFocused)
-                    
+
                     Picker("Number of people", selection: $numberOfPeople) {
                         ForEach(2..<100) {
                             Text("\($0) people")
                         }
+                    }
+                    .onTapGesture {
+                        amountIsFocused = false
                     }
                     
                     Picker("Tip percentage", selection: $tipPercentage) {
@@ -57,7 +60,6 @@ struct ContentView: View {
                 } header: {
                     Text("How much tip do you want to leave?")
                 }
-                
                 
                 Section {
                     Text(totalPerPerson.0, format: currencyFormatter)
@@ -72,6 +74,7 @@ struct ContentView: View {
                 } footer: {
                     Text("Sum of check amount plus tip value")
                 }
+                
             }
             .navigationTitle("WeSplit")
             .toolbar{
@@ -84,9 +87,8 @@ struct ContentView: View {
             }
         }
     }
+    
 }
-
-
 
 
 struct ContentView_Previews: PreviewProvider {
